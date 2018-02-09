@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Mapping
 {
-    public interface IMapping<Tkey, TValue>
+    public interface IMappingDataFactory
     {
-        KeyValuePair<Tkey, TValue> Mapping { get; }
+        Dictionary<Type, IMappingData> GetMappingData(Type type);
     }
 }

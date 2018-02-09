@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mapping
 {
-   [System.AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+   [System.AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class DbColumnInfoAttribute : Attribute
     {
         public string dbColumnName { get; set; }
@@ -26,4 +26,8 @@ namespace Mapping
             
         }
     }
+    /*
+     * 自定义数据类型映射关系
+     */
+
 }

@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Mapping
 {
-    public class ModelMappingInfo
+    public class MappingData : IMappingData
     {
         public DbTableInfoAttribute DbTableInfo { get; set; }
 
         public Dictionary<string, DbColumnInfoAttribute> DbColumnInfos { get; set; }
+
+        public string DbTableName
+        {
+            get
+            {
+                return DbTableInfo.DbTableName;
+            }
+        }
     }
 }

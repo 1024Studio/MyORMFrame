@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelMappingInfo.cs" />
+    <Compile Include="IMappingData.cs" />
+    <Compile Include="IMappingDataFactory.cs" />
+    <Compile Include="IMappingDataSet.cs" />
+    <Compile Include="MappingData.cs" />
     <Compile Include="DbColumnInfoAttribute.cs" />
     <Compile Include="DbColumnSetting.cs" />
     <Compile Include="DbTableInfoAttribute.cs" />
-    <Compile Include="IMapping.cs" />
+    <Compile Include="MappingDataFactory.cs" />
+    <Compile Include="MappingDataSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

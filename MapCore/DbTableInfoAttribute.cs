@@ -9,11 +9,11 @@ namespace Mapping
     [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true)]
     public class DbTableInfoAttribute : Attribute
     {
-        string dbTableName;
+        public string DbTableName { get; set; }
 
         public DbTableInfoAttribute(string dbTableName)
         {
-            this.dbTableName = dbTableName;
+            this.DbTableName = dbTableName;
         }
     }
 }
