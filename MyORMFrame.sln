@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBServerProviders", "MyORMFrame\DBServerProviders.csproj", "{B05F6B85-C7C7-4FDA-8357-F9F92BC4E0A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBServerProviders", "DBServerProviders\DBServerProviders.csproj", "{B05F6B85-C7C7-4FDA-8357-F9F92BC4E0A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLScriptCreator", "SQLMaker\SQLScriptCreator.csproj", "{093E95CE-A157-460C-A23C-66DA785F43C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLScriptCreator", "SQLScriptCreator\SQLScriptCreator.csproj", "{093E95CE-A157-460C-A23C-66DA785F43C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccess", "DBAccess\DBAccess.csproj", "{6AC4DB15-727A-404F-A393-056C612FE883}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContext", "DBContext\DBCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOperator", "DBOperator\DBOperator.csproj", "{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "MapCore\Mapping.csproj", "{90D67FE8-537B-4C1D-AF69-8285595E5BAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{90D67FE8-537B-4C1D-AF69-8285595E5BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
