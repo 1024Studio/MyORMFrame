@@ -10,10 +10,12 @@ namespace Mapping
     {
         Dictionary<Type, IMappingData> modelsMappingDataSet;
 
-        IMappingDataFactory mappingDataCreator;
+        Func<Type,IMappingData> mappingDataCreator;
 
-        public MappingDataSet(IMappingDataFactory mappingDataCreator)
+        public MappingDataSet(Func<Type,IMappingData> mappingDataCreator)
         {
+            modelsMappingDataSet = new Dictionary<Type, IMappingData>();
+
             this.mappingDataCreator = mappingDataCreator;
         }
 
@@ -22,12 +24,10 @@ namespace Mapping
             if (modelsMappingDataSet[type] == null)
             {
                 //如果映射集中没有该类型的映射信息，则添加该类型
-                var mappingData = mappingDataCreator.GetMappingData(type);
-            }
-            else
-            {
-                //否则抛出异常
-            }
+                var mappingData = mappingDataCreator(type);
+
+                modelsMappingDataSet.Add(type, mappingData);
+            }          
         }
         public void InputTypes(ICollection<Type> types)
         {

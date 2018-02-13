@@ -8,16 +8,29 @@ namespace Mapping
 {
     public class MappingData : IMappingData
     {
-        public DbTableInfoAttribute DbTableInfo { get; set; }
+        DbTableInfoAttribute dbTableInfo;
 
-        public Dictionary<string, DbColumnInfoAttribute> DbColumnInfos { get; set; }
+        List<DbColumnInfoAttribute> dbColumnInfos;
 
-        public string DbTableName
+        public MappingData(Type type)
         {
-            get
+            dbColumnInfos = new List<DbColumnInfoAttribute>();
+
+            var attrs = System.Attribute.GetCustomAttributes(type);
+            var typeMembers = type.
+            foreach (var attr in attrs)
             {
-                return DbTableInfo.DbTableName;
+                if (attr is DbTableInfoAttribute)
+                {
+                    dbTableInfo = (DbTableInfoAttribute)attr;
+                }
+                else if (attr is DbColumnInfoAttribute)
+                {
+                    dbColumnInfos.Add((DbColumnInfoAttribute)attr);
+                }
             }
         }
+
+
     }
 }

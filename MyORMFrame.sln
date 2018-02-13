@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOperator", "DBOperator\DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{90D67FE8-537B-4C1D-AF69-8285595E5BAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{656EB215-F52A-4182-B026-768856B9506A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656EB215-F52A-4182-B026-768856B9506A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656EB215-F52A-4182-B026-768856B9506A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656EB215-F52A-4182-B026-768856B9506A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656EB215-F52A-4182-B026-768856B9506A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

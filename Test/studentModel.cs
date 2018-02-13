@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapping
+namespace Test
 {
-    //废弃
-    public interface IMappingDataFactory
+    public class studentModel
     {
-        IMappingData GetMappingData(Type type);
+        public int id { get; set; }
     }
 }

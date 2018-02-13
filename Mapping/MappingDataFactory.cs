@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Mapping
 {
+    //废弃
     public class MappingDataFactory : IMappingDataFactory
     {
-        public Dictionary<Type, IMappingData> GetMappingData(Type type)
-        {
+        public IMappingData GetMappingData(Type type)
+        {       
             return null;
 
             throw new NotImplementedException();            
