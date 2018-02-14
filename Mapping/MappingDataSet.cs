@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapping
+namespace MyORMFrame.Mapping
 {
     public class MappingDataSet : IMappingDataSet
     {
@@ -25,6 +25,9 @@ namespace Mapping
             {
                 //如果映射集中没有该类型的映射信息，则添加该类型
                 var mappingData = mappingDataCreator(type);
+
+                if (mappingData == null)
+                    throw new Exception("生成mappingData失败");
 
                 modelsMappingDataSet.Add(type, mappingData);
             }          

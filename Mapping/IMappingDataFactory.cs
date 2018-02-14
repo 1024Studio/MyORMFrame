@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapping
+namespace MyORMFrame.Mapping
 {
     //废弃
     public interface IMappingDataFactory

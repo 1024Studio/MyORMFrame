@@ -1,4 +1,4 @@
-﻿namespace Mapping
+﻿namespace MyORMFrame.Mapping
 {
     public interface IMappingData
     {

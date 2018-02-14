@@ -7,7 +7,7 @@
     <ProjectGuid>{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBOperator</RootNamespace>
+    <RootNamespace>MyORMFrame.DBOperator</RootNamespace>
     <AssemblyName>DBOperator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -4,30 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapping
+namespace MyORMFrame.Mapping
 {
-   [System.AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+   [System.AttributeUsage(AttributeTargets.Property, AllowMultiple = true,Inherited = false)]
     public class DbColumnInfoAttribute : Attribute
     {
         public string dbColumnName { get; set; }
         public string dbTypeName { get; set; }
 
-        public DbColumnSetting dbColumnSetting { get; set; }
+        //dbColumnSetting
+        public bool IsPrimaryKey { get; set; }
+        public bool AllowNull { get; set; }
 
-        public DbColumnInfoAttribute(string dbColumnName, DbColumnSetting dbColumnSetting = null)
+        public DbColumnInfoAttribute(string dbColumnName, string dbTypeName, bool IsPrimaryKey = false, bool AllowNull = false)
         {
-            this.dbColumnName = dbColumnName;
-            this.dbColumnSetting = dbColumnSetting;
+            if (dbColumnName == null || dbTypeName == null)
+                throw new Exception("DbColumnInfoAttribute参数不能为null值");
 
-            if (this.dbColumnSetting == null)
-            {
-                this.dbColumnSetting = DbColumnSetting.DefaultColumnSetting;
-            }
+            this.dbColumnName = dbColumnName;
+            this.dbTypeName = dbTypeName;
+
+            //dbColumnSetting
+            this.IsPrimaryKey = IsPrimaryKey;
+            this.AllowNull = AllowNull;
             
         }
-    }
-    /*
-     * 自定义数据类型映射关系
-     */
 
+    }
 }

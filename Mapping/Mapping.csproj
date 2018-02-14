@@ -7,7 +7,7 @@
     <ProjectGuid>{90D67FE8-537B-4C1D-AF69-8285595E5BAC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mapping</RootNamespace>
+    <RootNamespace>MyORMFrame.Mapping</RootNamespace>
     <AssemblyName>Mapping</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

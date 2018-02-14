@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mapping;
-
-namespace Test
+using MyORMFrame.Mapping;
+namespace MyORMFrame.Test
 {
     [TestClass]
     public class MappingTest
@@ -11,10 +10,11 @@ namespace Test
         {
             TestMethod1();
         }
+
         [TestMethod]
         public static void TestMethod1()
         {
-            IMappingData data = new MappingData(typeof(studentModel));
+            IMappingData data = new MappingData(typeof(studentModel), MappingDataFactory.typeMappingMethod);
 
             return;
         }

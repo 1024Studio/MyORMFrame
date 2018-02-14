@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mapping
+namespace MyORMFrame.Mapping
 {
     public interface IMappingDataSet
     {
-        //void InputMappingDataSet(Dictionary<Type, MappingData> modelsMappingDataSet);
-
         void InputType(Type type);
 
         void InputTypes(ICollection<Type> types);

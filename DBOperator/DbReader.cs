@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBOperator
+namespace MyORMFrame.DBOperator
 {
     class DbReader
     {

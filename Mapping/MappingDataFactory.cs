@@ -4,16 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapping
+namespace MyORMFrame.Mapping
 {
-    //废弃
-    public class MappingDataFactory : IMappingDataFactory
+    public class MappingDataFactory
     {
-        public IMappingData GetMappingData(Type type)
-        {       
-            return null;
+        static Dictionary<Type, string> typeMappingStrs;
 
-            throw new NotImplementedException();            
+        public static IMappingData GetMappingData(Type type)
+        {
+            IMappingData mappingData = new MappingData(type, typeMappingMethod);
+
+            return mappingData;      
+        }
+
+        public static string typeMappingMethod(Type type)
+        {
+            if (typeMappingStrs == null)
+            {
+                //初始化映射列表
+                typeMappingStrs = new Dictionary<Type, string>();
+
+                typeMappingStrs.Add(typeof(int), "int");
+            }
+            return typeMappingStrs[type];
         }
     }
 }
