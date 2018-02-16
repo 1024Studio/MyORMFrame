@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{90D67FE8-537B-4C1D-AF69-8285595E5BAC}</ProjectGuid>
+    <ProjectGuid>{3E83A6EA-F91A-4E18-AC19-E2A202077373}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyORMFrame.Mapping</RootNamespace>
-    <AssemblyName>Mapping</AssemblyName>
+    <RootNamespace>MyORMFrame.ModelParser</RootNamespace>
+    <AssemblyName>ModelParser</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMappingData.cs" />
-    <Compile Include="IMappingDataSet.cs" />
-    <Compile Include="MappingData.cs" />
-    <Compile Include="DbColumnInfoAttribute.cs" />
-    <Compile Include="DbTableInfoAttribute.cs" />
-    <Compile Include="MappingDataFactory.cs" />
-    <Compile Include="MappingDataSet.cs" />
+    <Compile Include="ModelParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Relation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mapping\Mapping.csproj">
+      <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
+      <Name>Mapping</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

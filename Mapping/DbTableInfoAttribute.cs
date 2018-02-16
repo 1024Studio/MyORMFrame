@@ -11,11 +11,8 @@ namespace MyORMFrame.Mapping
     {
         public string DbTableName { get; set; }
 
-        public DbTableInfoAttribute(string dbTableName)
+        public DbTableInfoAttribute(string dbTableName = null)
         {
-            if (dbTableName == null)
-                throw new Exception("DbTableInfoAttribute参数不能为null值");
-
             this.DbTableName = dbTableName;
         }
     }

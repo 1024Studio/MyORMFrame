@@ -7,7 +7,7 @@ namespace MyORMFrame.Mapping
     {
         void InputType(Type type);
 
-        void InputTypes(ICollection<Type> types);
+        void InputTypes(List<Type> types);
 
         void RemoveMappingData(Type type);
 

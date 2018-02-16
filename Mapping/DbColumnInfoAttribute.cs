@@ -9,25 +9,14 @@ namespace MyORMFrame.Mapping
    [System.AttributeUsage(AttributeTargets.Property, AllowMultiple = true,Inherited = false)]
     public class DbColumnInfoAttribute : Attribute
     {
-        public string dbColumnName { get; set; }
-        public string dbTypeName { get; set; }
+        public string DbTypeName { get; set; }
 
-        //dbColumnSetting
-        public bool IsPrimaryKey { get; set; }
-        public bool AllowNull { get; set; }
+        public RelationColumnSetting ColumnSetting { get; set; }
 
-        public DbColumnInfoAttribute(string dbColumnName, string dbTypeName, bool IsPrimaryKey = false, bool AllowNull = false)
+        public DbColumnInfoAttribute(string dbTypeName = null, bool IsPrimaryKey = false, bool AllowNull = false)
         {
-            if (dbColumnName == null || dbTypeName == null)
-                throw new Exception("DbColumnInfoAttribute参数不能为null值");
-
-            this.dbColumnName = dbColumnName;
-            this.dbTypeName = dbTypeName;
-
-            //dbColumnSetting
-            this.IsPrimaryKey = IsPrimaryKey;
-            this.AllowNull = AllowNull;
-            
+            //要引用relation默认规则
+                     
         }
 
     }

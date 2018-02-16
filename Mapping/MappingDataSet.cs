@@ -8,6 +8,7 @@ namespace MyORMFrame.Mapping
 {
     public class MappingDataSet : IMappingDataSet
     {
+        //可能废弃
         Dictionary<Type, IMappingData> modelsMappingDataSet;
 
         Func<Type,IMappingData> mappingDataCreator;
@@ -23,7 +24,7 @@ namespace MyORMFrame.Mapping
         {
             if (modelsMappingDataSet[type] == null)
             {
-                //如果映射集中没有该类型的映射信息，则添加该类型
+                //如果映射集没有该类型的映射信息，则添加该类型
                 var mappingData = mappingDataCreator(type);
 
                 if (mappingData == null)
@@ -32,7 +33,7 @@ namespace MyORMFrame.Mapping
                 modelsMappingDataSet.Add(type, mappingData);
             }          
         }
-        public void InputTypes(ICollection<Type> types)
+        public void InputTypes(List<Type> types)
         {
             foreach (var type in types)
             {

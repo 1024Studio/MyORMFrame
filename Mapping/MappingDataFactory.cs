@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.Mapping
 {
+    //废弃
     public class MappingDataFactory
     {
         static Dictionary<Type, string> typeMappingStrs;
@@ -26,6 +27,8 @@ namespace MyORMFrame.Mapping
 
                 typeMappingStrs.Add(typeof(int), "int");
             }
+
+            //表达异常
             return typeMappingStrs[type];
         }
     }
