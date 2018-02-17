@@ -9,8 +9,10 @@ namespace MyORMFrame.Mapping
 
         void InputTypes(List<Type> types);
 
-        void RemoveMappingData(Type type);
+        RelationModel GetRelation(string relationName);
 
-        IMappingData this[Type type] { get; }
+        IMapper GetMapper(Type type);
+
+        List<RelationModel> GetAllRelations();
     }
 }

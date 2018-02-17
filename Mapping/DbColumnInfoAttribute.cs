@@ -11,7 +11,7 @@ namespace MyORMFrame.Mapping
     {
         public string DbTypeName { get; set; }
 
-        public RelationColumnSetting ColumnSetting { get; set; }
+        public RelationModelColumnSetting ColumnSetting { get; set; }
 
         public DbColumnInfoAttribute(string dbTypeName = null, bool IsPrimaryKey = false, bool AllowNull = false)
         {

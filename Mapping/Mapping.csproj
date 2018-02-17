@@ -40,12 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMappingData.cs" />
+    <Compile Include="IMapper.cs" />
     <Compile Include="IMappingDataSet.cs" />
-    <Compile Include="MappingData.cs" />
+    <Compile Include="Mapper.cs" />
     <Compile Include="DbColumnInfoAttribute.cs" />
     <Compile Include="DbTableInfoAttribute.cs" />
-    <Compile Include="MappingDataFactory.cs" />
     <Compile Include="MappingDataSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation.cs" />

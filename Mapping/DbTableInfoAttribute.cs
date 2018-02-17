@@ -9,11 +9,9 @@ namespace MyORMFrame.Mapping
     [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public class DbTableInfoAttribute : Attribute
     {
-        public string DbTableName { get; set; }
-
-        public DbTableInfoAttribute(string dbTableName = null)
+        public DbTableInfoAttribute()
         {
-            this.DbTableName = dbTableName;
+
         }
     }
 }

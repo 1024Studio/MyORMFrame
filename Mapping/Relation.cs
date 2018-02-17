@@ -44,11 +44,16 @@ namespace MyORMFrame.Mapping
 
         public string TypeName { get; set; }
 
-        public RelationColumnSetting ColumnSetting { get; set; }
+        public RelationModelColumnSetting ColumnSetting { get; set; }
+
+        public ColumnOfRelationModel(string ColumnName, string TypeName, RelationModelColumnSetting ColumnSetting)
+        {
+
+        }
 
     }
 
-    public class RelationColumnSetting
+    public class RelationModelColumnSetting
     {
         public bool IsPrimaryKey { get; set; }
 
@@ -56,7 +61,7 @@ namespace MyORMFrame.Mapping
 
         public int Size { get; set; }
 
-        public RelationColumnSetting(bool isPrimaryKey, bool allowNull)
+        public RelationModelColumnSetting(bool isPrimaryKey, bool allowNull)
         {
 
         }

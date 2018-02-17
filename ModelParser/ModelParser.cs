@@ -11,28 +11,15 @@ namespace MyORMFrame.ModelParser
 {
     public class ModelParser<T>
     {
-        private static ModelParser<T> parser;
-        public static ModelParser<T> Parser
-        {
-            get
-            {
-                if (parser == null)
-                {
-                    parser = new ModelParser<T>();
-                }
-                return parser;
-            }
-        }
-        private ModelParser()
+        public ModelParser()
         {
 
         }
 
-        private List<RelationModel> relations;
-
-        public T GetModel(DataSet dataSet)
+        public List<T> GetModels(DataSet dataSet, Func<string, object> loadMethod)
         {
-            //延迟读取技术
+            //延迟读取技术,有问题
+            loadMethod = a => a.Length;
             return null;
         }
     }
