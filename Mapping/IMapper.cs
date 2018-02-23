@@ -6,6 +6,10 @@ namespace MyORMFrame.Mapping
 {
     public interface IMapper
     {
+        RelationModel GetRelation(string modelName);
+
         List<RelationModel> GetRelations();
+
+        PropertyMappingInfo GetColumnMappingInfo(string columnName);
     }
 }

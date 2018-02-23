@@ -8,8 +8,15 @@ using MyORMFrame.Mapping;
 namespace MyORMFrame.Test
 {
     
-    public class studentModel
+    public class StudentModel
     {
         public int id { get; set; }
+        public List<Class> Class { get;set;}
+    }
+
+    public class @Class
+    {
+        public int id { get; set; }
+        public List<StudentModel> students { get; set; }
     }
 }

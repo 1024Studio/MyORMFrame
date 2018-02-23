@@ -45,6 +45,7 @@ namespace MyORMFrame.Mapping
         public string TypeName { get; set; }
 
         public RelationModelColumnSetting ColumnSetting { get; set; }
+        //还不如直接改成sql字串
 
         public ColumnOfRelationModel(string ColumnName, string TypeName, RelationModelColumnSetting ColumnSetting)
         {
