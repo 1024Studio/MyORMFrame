@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.Attributes
 {
-    public class AllowNull : Attribute
+    public abstract class ConstraintAttribute : DbAttribute
     {
-        public bool allowNull { get; set; }
-
-        public AllowNull(bool allowNull)
+        public virtual string GetConstraintStr()
         {
-            this.allowNull = allowNull;
+            return string.Empty;
         }
     }
 }

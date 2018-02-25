@@ -4,27 +4,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyORMFrame.Attributes;
 
 namespace MyORMFrame.Mapping
 {
     public class ModelUtil
     {
-        public string PrimaryKeyColumnName { get; set; }
+        public string PrimaryKeyPropertyName { get; set; }
 
         public Type ModelType { get; set; }
-
-        public List<RelationModel> Relations { get; set; }
         
         public ModelUtil(Type type)
         {
             this.ModelType = type;
             //初始化
             //测试代码
-            PrimaryKeyColumnName = "";
+            PrimaryKeyPropertyName = "";
+
+            var propertys = ModelType.GetProperties();
+
+            RelationModel mainRelation = new RelationModel(ModelType.Name);
+            foreach (var p in propertys)
+            {
+                RelationModelColumn r_column = null;
+
+                var propertyMappingInfo = GetPropertyMappingInfo(p.Name);
+                switch (propertyMappingInfo.Property_TypeRole)
+                {
+                    case PropertyMappingInfo.PropertyTypeRole.Value:
+                        r_column = new RelationModelColumn(p.Name, propertyMappingInfo.DbTypeName, "");
+                        break;
+                    case PropertyMappingInfo.PropertyTypeRole.Model:
+                        r_column = new RelationModelColumn(p.Name, DbTypeMapping.TypeMapping(typeof(int)), "");    //  设置外键
+                        break;
+                    case PropertyMappingInfo.PropertyTypeRole.ModelList_To_Obj:
+                        //新建relation
+                        ///
+                        break;
+                    case PropertyMappingInfo.PropertyTypeRole.ModelList_To_List:
+                        //新建第三方参照relation
+                        break;
+                }
+            }
+
         }
+        public List<RelationModel> GetRelations()
+        {
+            return null;
+        }
+
         public object GetPrimaryKeyValue(object obj)
         {
-            return GetPropertyValue(obj, PrimaryKeyColumnName);
+            return GetPropertyValue(obj, PrimaryKeyPropertyName);
         }
 
         public object GetPropertyValue(object obj, string propertyName)
@@ -40,6 +71,7 @@ namespace MyORMFrame.Mapping
 
             
         }
+
         public void SetPropertyValue<TValue>(object obj, string propertyName, TValue value)
         {
             if (obj.GetType().Equals(ModelType)) //检查类型
@@ -60,19 +92,20 @@ namespace MyORMFrame.Mapping
                 }
             }
         }
+
         public PropertyMappingInfo GetPropertyMappingInfo(string propertyName)
         {
             PropertyMappingInfo info = new PropertyMappingInfo();
 
+            info.DbColumnName = propertyName;
 
             var property = ModelType.GetProperty(propertyName);
 
             Type propertyType = property.PropertyType;
 
+            string propertyDbTypeName = GetPropertyDbAttribute<TypeAttribute>(propertyName).DbTypeName;
 
-            string propertyTypeName = TypeMapping(propertyType.Name);
-
-            if (propertyTypeName == null)
+            if (propertyDbTypeName == DbTypeMapping.UserType.TypeName)
             {
                 //若映射类型名为null的话,则说明该列属性存在引用关系
                 if (propertyType.GetInterface("IEnumerable`1") != null)
@@ -121,8 +154,8 @@ namespace MyORMFrame.Mapping
                 {
                     //否则是单引用关系
                     //若是单引用关系,则目标关系必须包含主键(外键)
-                    string other_primaryKeyName = new ModelUtil(propertyType).PrimaryKeyColumnName;
-                    if (other_primaryKeyName != null)
+                    string other_primaryKeyName = new ModelUtil(propertyType).PrimaryKeyPropertyName;
+                    if (other_primaryKeyName != null)   //  验证外键
                     {
                         info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.Model;
                         info.ReferenceModelType = propertyType;
@@ -138,15 +171,31 @@ namespace MyORMFrame.Mapping
             else
             {
                 info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.Value;
-                info.DbTypeName = propertyTypeName;
             }
             return info;
         }
-
-        public static string TypeMapping(string typeName)
+        public TAttributeType GetPropertyDbAttribute<TAttributeType>(string propertyName) where TAttributeType : DbAttribute
         {
-            //基本类型映射
-            return null;
+            var attrs = GetPropertyDbAtttibutes(propertyName);
+
+            TAttributeType a = null;
+            foreach(var attr in attrs)
+            {
+                if (attr is TAttributeType)
+                {
+                    a = (TAttributeType)attr;
+                    break;
+                }
+            }
+            return a;
         }
+        public List<DbAttribute> GetPropertyDbAtttibutes(string propertyName)
+        {
+            List<DbAttribute> dbAttributes = new List<DbAttribute>();
+
+            var property = ModelType.GetProperty(propertyName);
+
+        }
+
     }
 }

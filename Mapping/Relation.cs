@@ -10,14 +10,14 @@ namespace MyORMFrame.Mapping
     {
         public string TbName { get; set; }
 
-        public List<ColumnOfRelationModel> Columns { get; set; }
+        public List<RelationModelColumn> Columns { get; set; }
 
         public RelationModel(string relationName)
         {
             if (relationName != null && relationName != "")
             {
                 this.TbName = relationName;
-                this.Columns = new List<ColumnOfRelationModel>();
+                this.Columns = new List<RelationModelColumn>();
             }
             else
             {
@@ -38,33 +38,27 @@ namespace MyORMFrame.Mapping
         }
     }
 
-    public class ColumnOfRelationModel
+    public class RelationModelColumn
     {
         public string ColumnName { get; set; }
 
         public string TypeName { get; set; }
 
-        public RelationModelColumnSetting ColumnSetting { get; set; }
+        public string Size { get; set; }
+
+        public string ConstraintsStr { get; set; }
         //还不如直接改成sql字串
 
-        public ColumnOfRelationModel(string ColumnName, string TypeName, RelationModelColumnSetting ColumnSetting)
+        public RelationModelColumn(string ColumnName, string TypeName, string Size, string ConstraintsStr)
         {
+            this.ColumnName = ColumnName;
+
+            this.TypeName = TypeName;
+
+            this.Size = Size;
+
+            this.ConstraintsStr = ConstraintsStr;
 
         }
-
-    }
-
-    public class RelationModelColumnSetting
-    {
-        public bool IsPrimaryKey { get; set; }
-
-        public bool AllowNull { get; set; }
-
-        public int Size { get; set; }
-
-        public RelationModelColumnSetting(bool isPrimaryKey, bool allowNull)
-        {
-
-        }
-    }
+    }   
 }

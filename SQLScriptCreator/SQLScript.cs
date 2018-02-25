@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using MyORMFrame.DBAccess;
 
-namespace MyORMFrame.SQLScriptCreator
+namespace MyORMFrame.SQL
 {
-    class SQLScript
+    public class SqlScript
     {
-        public SQLScript(string sqlScript)
+        public SqlScript(string sqlScript)
         {
 
         }
 
-        private string SqlScript { get; }
+        public string GetSql()
+        {
+            return null;
+        }
 
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.Attributes
 {
-    interface ISql
+    public abstract class DbAttribute : Attribute
     {
-        string ToSql();
+        public abstract bool IsLawful();
     }
 }

@@ -4,37 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyORMFrame.SQLScriptCreator
+namespace MyORMFrame.SQL
 {
     //可能需要重构
     public class SQLScriptCreator
     {
-        SQLScript InsertInto(string tableName, string[] columns, string[] values)
+        SqlScript InsertInto(string tableName, string[] columns, string[] values)
         {
             return null;
         }
 
-        SQLScript InsertInto(string tableName, string[] values)
+        SqlScript InsertInto(string tableName, string[] values)
         {
             return null;
         }
 
-        SQLScript Delete(string tableName, string condition)
+        SqlScript Delete(string tableName, string condition)
         {
             return null;
         }
 
-        SQLScript Update(string tableName, string[] columns, string[] values, string condition)
+        SqlScript Update(string tableName, string[] columns, string[] values, string condition)
         {
             return null;
         }
 
-        SQLScript Update(string tableName, string[] columns, string[] values)
+        SqlScript Update(string tableName, string[] columns, string[] values)
         {
             return null;
         }
 
-        SQLScript Select(string[] tablesName, string[] columns, string condition)
+        SqlScript Select(string[] tablesName, string[] columns, string condition)
         {
             return null;
         }

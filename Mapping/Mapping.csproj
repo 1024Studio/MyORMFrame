@@ -40,15 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PropertyMappingInfo.cs" />
+    <Compile Include="DbTypeMapping.cs" />
     <Compile Include="IMapper.cs" />
     <Compile Include="IMappingDataSet.cs" />
     <Compile Include="Mapper.cs" />
-    <Compile Include="DbColumnInfoAttribute.cs" />
-    <Compile Include="DbTableInfoAttribute.cs" />
     <Compile Include="MappingDataSet.cs" />
     <Compile Include="ModelUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Attributes\Attributes.csproj">
+      <Project>{f7ce7cec-ab93-4d14-b051-2eafc256c3f4}</Project>
+      <Name>Attributes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
