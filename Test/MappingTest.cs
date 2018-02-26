@@ -23,8 +23,10 @@ namespace MyORMFrame.Test
 
             var res = members.GetInterface("IEnumerable`1");
 
-            ModelUtil m = new ModelUtil(typeof(StudentModel));
+            ModelUtil m = new ModelUtil(typeof(Student));
             var s = m.GetPropertyMappingInfo("Class");
+
+            List<RelationModel> relations = new ModelUtil(typeof(Student)).GetRelations();
             return;
         }
     }

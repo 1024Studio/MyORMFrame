@@ -13,44 +13,120 @@ namespace MyORMFrame.Mapping
         public string PrimaryKeyPropertyName { get; set; }
 
         public Type ModelType { get; set; }
-        
+
+        /// <summary>
+        /// 构造函数：初始化属性, 要保证model各属性标注合法，并确认唯一主键
+        /// </summary>
+        /// <param name="type"></param>
         public ModelUtil(Type type)
         {
             this.ModelType = type;
             //初始化
-            //测试代码
-            PrimaryKeyPropertyName = "";
-
-            var propertys = ModelType.GetProperties();
+            VertifyDbAttributes();    
+        }
+        public List<RelationModel> GetRelations()
+        {
+            List<RelationModel> relations = new List<RelationModel>();
 
             RelationModel mainRelation = new RelationModel(ModelType.Name);
+
+            relations.Add(mainRelation);
+
+            var propertys = ModelType.GetProperties();
             foreach (var p in propertys)
             {
                 RelationModelColumn r_column = null;
+                List<RelationModel> new_relations = null;
+
+                ModelUtil otherModel_util = null;
+
+                string dbType = null;
+                string typeSize = null;
+                string constraints = string.Empty;
+
+                foreach (var attr in GetPropertyDbAtttibutes(p.Name))
+                {
+                    if (attr is ConstraintAttribute)
+                    {
+                        constraints += ((ConstraintAttribute)attr).GetConstraintStr();
+                    }
+                }
 
                 var propertyMappingInfo = GetPropertyMappingInfo(p.Name);
                 switch (propertyMappingInfo.Property_TypeRole)
                 {
                     case PropertyMappingInfo.PropertyTypeRole.Value:
-                        r_column = new RelationModelColumn(p.Name, propertyMappingInfo.DbTypeName, "");
+
+                        dbType = GetPropertyDbAttribute<TypeAttribute>(p.Name).DbTypeName;
+                        typeSize = GetPropertyDbAttribute<TypeAttribute>(p.Name).Size;
+
+                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, constraints);               
+
                         break;
+
                     case PropertyMappingInfo.PropertyTypeRole.Model:
-                        r_column = new RelationModelColumn(p.Name, DbTypeMapping.TypeMapping(typeof(int)), "");    //  设置外键
+
+                        otherModel_util = new ModelUtil(propertyMappingInfo.ReferenceModelType);
+
+                        dbType = otherModel_util.GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).DbTypeName;
+                        typeSize = otherModel_util.GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).Size;
+
+                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, "NOT NULL");    //  设置外键
+
+                        new_relations = otherModel_util.GetRelations();
+
                         break;
+
                     case PropertyMappingInfo.PropertyTypeRole.ModelList_To_Obj:
-                        //新建relation
-                        ///
+
+                        otherModel_util = new ModelUtil(propertyMappingInfo.ReferenceModelType);
+
+                        new_relations = otherModel_util.GetRelations();
+
+                        dbType = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).DbTypeName;
+                        typeSize = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).Size;
+
+                        //被参照关系的主关系添加一列参照属性
+                        new_relations[0].Columns.Add(new RelationModelColumn(PrimaryKeyPropertyName, dbType, typeSize, "NOT NULL"));
+
                         break;
+
                     case PropertyMappingInfo.PropertyTypeRole.ModelList_To_List:
+
+                        otherModel_util = new ModelUtil(propertyMappingInfo.ReferenceModelType);
                         //新建第三方参照relation
+                        new_relations = new List<RelationModel>();
+                        var _newRelation = new RelationModel(string.Format("{0}_{1}", ModelType.Name, otherModel_util.ModelType.Name));
+
+                        //添加第一参照列
+                        dbType = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).DbTypeName;
+                        typeSize = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).Size;
+
+                        _newRelation.Columns.Add(new RelationModelColumn(PrimaryKeyPropertyName, dbType, typeSize, "NOT NULL"));
+
+                        //添加第二参照列
+                        dbType = GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).DbTypeName;
+                        typeSize = GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).Size;
+
+                        _newRelation.Columns.Add(new RelationModelColumn(otherModel_util.PrimaryKeyPropertyName, dbType, typeSize, "NOT NULL"));
+
+                        //添加第三参照关系
+                        new_relations.Add(_newRelation);
+                           
                         break;
                 }
+
+                mainRelation.Columns.Add(r_column);
+
+                if (new_relations != null)
+                {
+                    relations.AddRange(new_relations);
+                }
+                              
+                new_relations = null;   //  清空新建关系
             }
 
-        }
-        public List<RelationModel> GetRelations()
-        {
-            return null;
+            return relations;
         }
 
         public object GetPrimaryKeyValue(object obj)
@@ -67,9 +143,7 @@ namespace MyORMFrame.Mapping
             else
             {
                 return null;
-            }
-
-            
+            }            
         }
 
         public void SetPropertyValue<TValue>(object obj, string propertyName, TValue value)
@@ -116,7 +190,9 @@ namespace MyORMFrame.Mapping
                     {
                         //若是合法集合，验证是多对一，还是多对多关系。
                         var referenceModelType = argTypes[0];
-                        //验证目标model是否包含关于自身的泛型集合，已确定是多对一还是多对多
+
+                        info.ReferenceModelType = referenceModelType;
+                        //验证目标model是否包含关于自身的泛型集合，以确定是多对一还是多对多
                         bool isContainListOfSelf = false;
                         foreach (var p in referenceModelType.GetProperties())
                         {
@@ -133,15 +209,29 @@ namespace MyORMFrame.Mapping
 
                         if (!isContainListOfSelf)
                         {
-                            //多对一关系
-                            info.ReferenceModelType = referenceModelType;
-                            info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.ModelList_To_Obj;
+                            //多对一关系，验证自身是否包含主键属性
+                            if (PrimaryKeyPropertyName != null)
+                            {                            
+                                info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.ModelList_To_Obj;
+                            }
+                            else
+                            {
+                                //否则抛出异常
+                            }
                         }
                         else
                         {
-                            //多对多关系
-                            info.ReferenceModelType = referenceModelType;
-                            info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.ModelList_To_List;
+                            //多对多关系，验证双方是否包含主键属性
+                            string other_primaryKeyName = new ModelUtil(info.ReferenceModelType).PrimaryKeyPropertyName;
+                            if (PrimaryKeyPropertyName != null && other_primaryKeyName != null)
+                            {
+                                info.Property_TypeRole = PropertyMappingInfo.PropertyTypeRole.ModelList_To_List;
+                            }
+                            else
+                            {
+                                //否则抛出异常
+                            }
+                            
                         }
                         
                     }
@@ -174,6 +264,12 @@ namespace MyORMFrame.Mapping
             }
             return info;
         }
+
+        public void VertifyDbAttributes()
+        {
+
+        }
+
         public TAttributeType GetPropertyDbAttribute<TAttributeType>(string propertyName) where TAttributeType : DbAttribute
         {
             var attrs = GetPropertyDbAtttibutes(propertyName);
@@ -189,11 +285,24 @@ namespace MyORMFrame.Mapping
             }
             return a;
         }
+
         public List<DbAttribute> GetPropertyDbAtttibutes(string propertyName)
         {
             List<DbAttribute> dbAttributes = new List<DbAttribute>();
 
             var property = ModelType.GetProperty(propertyName);
+
+            var attrs = System.Attribute.GetCustomAttributes(property);
+
+            foreach (var attr in attrs)
+            {
+                if (attr is DbAttribute)
+                {
+                    dbAttributes.Add((DbAttribute)attr);
+                }
+            }
+
+            return dbAttributes;
 
         }
 

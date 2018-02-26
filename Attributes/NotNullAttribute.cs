@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +12,6 @@ namespace MyORMFrame.Attributes
         public override string GetConstraintStr()
         {
             return "NOT NULL";
-        }
-
-        public override bool IsLawful()
-        {
-            throw new NotImplementedException();
         }
     }
 }

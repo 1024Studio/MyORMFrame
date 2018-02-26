@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.DBContext
 {
-    public class Class1
+    public class DbContext
     {
 
     }

@@ -28,17 +28,14 @@ namespace MyORMFrame.Mapping
             var type_members = type.GetProperties();
             foreach (var m in type_members)
             {
-                RelationModelColumnSetting setting = null;
+                //RelationModelColumnSetting setting = null;
 
 
                 //  读取列的用户定义属性
                 var attrs = System.Attribute.GetCustomAttributes(m);  
                 foreach(var attr in attrs)
                 {
-                    if (attr is DbColumnInfoAttribute)
-                    {
-                        //如果用户有定义自定义属性的话
-                    }
+
                 }
 
                 

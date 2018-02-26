@@ -4,19 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyORMFrame.Mapping;
+using MyORMFrame.Attributes;
 
 namespace MyORMFrame.Test
 {
     
-    public class StudentModel
+    public class Student
     {
-        public int id { get; set; }
-        public List<Class> Class { get;set;}
+        [PrimaryKey]
+        public int Id { get; set; }
+        public Class Class { get;set;}
+        public List<Course> Courses { get; set; }
     }
 
     public class @Class
     {
+        [PrimaryKey]
         public int id { get; set; }
-        public List<StudentModel> students { get; set; }
+    }
+
+    public class Course
+    {
+        [PrimaryKey]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Student> Students { get; set; }
     }
 }
