@@ -140,8 +140,12 @@ namespace MyORMFrame.Mapping
                            
                         break;
                 }
-
-                mainRelation.Columns.Add(r_column);
+                if(r_column != null)
+                {
+                    mainRelation.Columns.Add(r_column);
+                    r_column = null;
+                }
+                    
 
                 if (new_relations != null)
                 {
@@ -182,8 +186,10 @@ namespace MyORMFrame.Mapping
                         ModelType.GetProperty(propertyName).SetValue(obj, int.Parse(value.ToString()));
                         break;
                     case "System.String":
+                        ModelType.GetProperty(propertyName).SetValue(obj, value.ToString());
                         break;
                     case "System.Bool":
+                        ModelType.GetProperty(propertyName).SetValue(obj, bool.Parse(value.ToString()));
                         break;
                     default:
                         ModelType.GetProperty(propertyName).SetValue(obj, value);

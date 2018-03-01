@@ -27,7 +27,25 @@ namespace MyORMFrame.Test
             var s = m.GetPropertyMappingInfo("Class");
 
             List<RelationModel> relations = new ModelUtil(typeof(Student)).GetRelations();
+
+            InputRelations(relations);
             return;
+        }
+
+        public static void InputRelations(List<RelationModel> relations)
+        {
+            foreach (var r in relations)
+            {
+                System.Console.WriteLine(r.TbName + ":");
+                foreach (var c in r.Columns)
+                {
+                    System.Console.WriteLine(string.Format(" {0} {1}({2}) {3}", c.ColumnName, c.TypeName, c.Size, c.ConstraintsStr));
+                }
+                System.Console.WriteLine("\r");
+
+            }
+
+            Console.ReadKey();
         }
     }
 }

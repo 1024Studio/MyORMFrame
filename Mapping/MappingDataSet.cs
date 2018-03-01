@@ -34,7 +34,7 @@ namespace MyORMFrame.Mapping
             //添加汇总关系模型集合
             foreach (var relation in typeRelations)
             {
-                if (relationModels[relation.TbName] == null)
+                if (relationModels.Values.Where(a => a.TbName == relation.TbName).ToList().Count == 0)
                 {
                     //如果关系模型字典中没有该关系，则直接添加
                     relationModels.Add(relation.TbName, relation);

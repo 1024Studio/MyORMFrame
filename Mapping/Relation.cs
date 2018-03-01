@@ -57,7 +57,7 @@ namespace MyORMFrame.Mapping
 
             this.Size = Size;
 
-            this.ConstraintsStr = ConstraintsStr;
+            this.ConstraintsStr = ConstraintsStr != null ? ConstraintsStr : string.Empty;
 
         }
     }   
