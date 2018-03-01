@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.DBServer
 {
-    public class Class1
+    public class DbServer
     {
 
     }

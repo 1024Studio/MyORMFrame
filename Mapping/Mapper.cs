@@ -61,8 +61,4 @@ namespace MyORMFrame.Mapping
             return mapper;
         }
     }
-
-    
-
-
 }
