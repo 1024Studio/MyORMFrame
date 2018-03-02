@@ -6,20 +6,29 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using MyORMFrame.DBAccess;
 
 namespace MyORMFrame.DBServerProvider
 {
-    class SQLServer : IDbServerProvider
+    public class SQLServer : IDbServerProvider
     {
         public string ConnectionString
         {
             get;set;
         }
+        public string DataBase
+        {
+            get
+            {
+                SqlConnection conn = new SqlConnection(ConnectionString);
+
+                return conn.Database;
+            }
+        }
 
         private SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection(ConnectionString);
+
             return conn;
         }
 
@@ -71,6 +80,13 @@ namespace MyORMFrame.DBServerProvider
 
             cmd.CommandText = cmdText;
             
+        }
+
+        public SqlException ConvertToSqlException(Exception exception)
+        {
+            SqlException ex = new SqlException(exception.Message, exception.InnerException,  ((System.Data.SqlClient.SqlException)exception).Number);
+
+            return ex;
         }
     }
 }

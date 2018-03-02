@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Data.Common;
 
-namespace MyORMFrame.DBAccess
+namespace MyORMFrame.DBServerProvider
 {
     public interface IDbServerProvider
     {
@@ -15,6 +15,7 @@ namespace MyORMFrame.DBAccess
         {
             get;set;
         }
+        string DataBase { get; }
 
         int ExcuteNonQuery(CommandType cmdType, string cmdText);
 
@@ -22,5 +23,6 @@ namespace MyORMFrame.DBAccess
 
         object ExcuteScalar(CommandType cmdType, string cmdText);
 
+        SqlException ConvertToSqlException(Exception exception);
     }
 }

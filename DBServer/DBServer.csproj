@@ -40,8 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DbServer.cs" />
+    <Compile Include="DbServerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBServerProviders\DBServerProviders.csproj">
+      <Project>{b05f6b85-c7c7-4fda-8357-f9f92bc4e0a4}</Project>
+      <Name>DBServerProviders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mapping\Mapping.csproj">
+      <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
+      <Name>Mapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQLScriptCreator\SQL.csproj">
+      <Project>{093e95ce-a157-460c-a23c-66da785f43c9}</Project>
+      <Name>SQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

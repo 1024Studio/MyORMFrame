@@ -35,10 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MyORMFrame.Test.MappingTest</StartupObject>
+    <StartupObject>MyORMFrame.Test.DbServerTest</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -53,8 +55,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DbServerTest.cs" />
     <Compile Include="MappingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlTest.cs" />
     <Compile Include="studentModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,10 +66,37 @@
       <Project>{f7ce7cec-ab93-4d14-b051-2eafc256c3f4}</Project>
       <Name>Attributes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBContext\DBContext.csproj">
+      <Project>{4a6af4ec-cf42-48dd-8a64-7706496aab47}</Project>
+      <Name>DBContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBOperator\DBOperator.csproj">
+      <Project>{a701faac-54cd-40ee-aeda-46c17a2fd462}</Project>
+      <Name>DBOperator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBServerProviders\DBServerProviders.csproj">
+      <Project>{b05f6b85-c7c7-4fda-8357-f9f92bc4e0a4}</Project>
+      <Name>DBServerProviders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DBServer\DBServer.csproj">
+      <Project>{bf80f4a1-6d2f-4b45-9640-eda8de4cf3a4}</Project>
+      <Name>DBServer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mapping\Mapping.csproj">
       <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
       <Name>Mapping</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModelParser\ModelQuery.csproj">
+      <Project>{3e83a6ea-f91a-4e18-ac19-e2a202077373}</Project>
+      <Name>ModelQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQLScriptCreator\SQL.csproj">
+      <Project>{093e95ce-a157-460c-a23c-66da785f43c9}</Project>
+      <Name>SQL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

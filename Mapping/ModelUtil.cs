@@ -69,7 +69,7 @@ namespace MyORMFrame.Mapping
                 {
                     if (attr is ConstraintAttribute)
                     {
-                        constraints += ((ConstraintAttribute)attr).GetConstraintStr();
+                        constraints += ((ConstraintAttribute)attr).GetConstraintStr() + " ";
                     }
                 }
 
@@ -158,11 +158,22 @@ namespace MyORMFrame.Mapping
             return relations;
         }
 
+        /// <summary>
+        /// 获取对象主键值
+        /// </summary>
+        /// <param name="obj">需要的类对象</param>
+        /// <returns></returns>
         public object GetPrimaryKeyValue(object obj)
         {
             return GetPropertyValue(obj, PrimaryKeyPropertyName);
         }
 
+        /// <summary>
+        /// 获取对象属性值
+        /// </summary>
+        /// <param name="obj">需要的类对象</param>
+        /// <param name="propertyName">属性名</param>
+        /// <returns></returns>
         public object GetPropertyValue(object obj, string propertyName)
         {
             if (obj.GetType().Equals(ModelType)) //检查类型
@@ -198,6 +209,11 @@ namespace MyORMFrame.Mapping
             }
         }
 
+        /// <summary>
+        /// 获取属性映射信息
+        /// </summary>
+        /// <param name="propertyName">属性名</param>
+        /// <returns></returns>
         public PropertyMappingInfo GetPropertyMappingInfo(string propertyName)
         {
             PropertyMappingInfo info = new PropertyMappingInfo();

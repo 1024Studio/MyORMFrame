@@ -12,6 +12,7 @@ namespace MyORMFrame.Test
     public class Student
     {
         [PrimaryKey]
+        [Identity(1,1)]
         public int Id { get; set; }
         public Class Class { get;set;}
         public List<Book> Books { get; set; }

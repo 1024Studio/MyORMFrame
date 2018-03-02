@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyORMFrame.DBServerProvider</RootNamespace>
-    <AssemblyName>DBServerProvider</AssemblyName>
+    <AssemblyName>MyORMFrame.DBServerProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBAccess.cs" />
+    <Compile Include="IDbServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlException.cs" />
     <Compile Include="SQLServer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DBAccess\DBAccess.csproj">
-      <Project>{6ac4db15-727a-404f-a393-056c612fe883}</Project>
-      <Name>DBAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

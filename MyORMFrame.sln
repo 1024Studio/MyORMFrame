@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBServerProviders", "DBServerProviders\DBServerProviders.csproj", "{B05F6B85-C7C7-4FDA-8357-F9F92BC4E0A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL", "SQLScriptCreator\SQL.csproj", "{093E95CE-A157-460C-A23C-66DA785F43C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccess", "DBAccess\DBAccess.csproj", "{6AC4DB15-727A-404F-A393-056C612FE883}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContext", "DBContext\DBContext.csproj", "{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}"
 EndProject
@@ -37,10 +35,6 @@ Global
 		{093E95CE-A157-460C-A23C-66DA785F43C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{093E95CE-A157-460C-A23C-66DA785F43C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{093E95CE-A157-460C-A23C-66DA785F43C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6AC4DB15-727A-404F-A393-056C612FE883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AC4DB15-727A-404F-A393-056C612FE883}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AC4DB15-727A-404F-A393-056C612FE883}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AC4DB15-727A-404F-A393-056C612FE883}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Release|Any CPU.ActiveCfg = Release|Any CPU

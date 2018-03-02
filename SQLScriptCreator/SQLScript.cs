@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MyORMFrame.DBAccess;
 
 namespace MyORMFrame.SQL
 {
     public class SqlScript
     {
+        private string sql { get; set; }
         public SqlScript(string sqlScript)
         {
-
+            sql = sqlScript;
         }
 
-        public string GetSql()
+        public override string ToString()
         {
-            return null;
+            return sql;
         }
 
     }

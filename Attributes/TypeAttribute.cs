@@ -13,7 +13,7 @@ namespace MyORMFrame.Attributes
 
         public string Size { get; set; }
 
-        public TypeAttribute(string dbType, string size)
+        public TypeAttribute(string dbType, string size = null)
         {
             this.DbTypeName = dbType;
 

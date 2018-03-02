@@ -11,8 +11,8 @@ namespace MyORMFrame.Mapping
     /// </summary>
     public class DbTypeMapping
     {
-        public readonly static DbType UserType = new DbType { TypeName = "UserType", DefaultSize = string.Empty };
-        public readonly static DbType List_UserType = new DbType { TypeName = "List_UserType", DefaultSize = string.Empty };
+        public readonly static DbType UserType = new DbType { TypeName = "UserType", DefaultSize = null };
+        public readonly static DbType List_UserType = new DbType { TypeName = "List_UserType", DefaultSize = null };
 
         static Dictionary<Type, DbType> mappings { get; set; }
 
@@ -23,7 +23,8 @@ namespace MyORMFrame.Mapping
                 //实例化类型映射表
                 mappings = new Dictionary<Type, DbType>();
 
-                mappings.Add(typeof(int), new DbType { TypeName="int", DefaultSize = "255"});
+                mappings.Add(typeof(int), new DbType { TypeName = "int", DefaultSize = null });
+                mappings.Add(typeof(bool), new DbType { TypeName = "bool", DefaultSize = null });
                 mappings.Add(typeof(string), new DbType { TypeName = "varchar", DefaultSize = "255" });
             }
             try

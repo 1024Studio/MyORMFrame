@@ -13,7 +13,8 @@ namespace MyORMFrame.Attributes
         public int increment { get; set; }
         public IdentityAttribute(int seek, int increment)
         {
-
+            this.seek = seek;
+            this.increment = increment;
         }
         public override string GetConstraintStr()
         {

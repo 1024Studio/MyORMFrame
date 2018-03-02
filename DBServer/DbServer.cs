@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyORMFrame.DBServer
 {
-    public class DbServer
+    public class DbServer : DbServerBase
     {
+        public DbServer(string name) : base(name)
+        {
 
+        }
     }
 }
