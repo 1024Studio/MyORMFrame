@@ -79,11 +79,14 @@ namespace MyORMFrame.Mapping
                     case PropertyMappingInfo.PropertyTypeRole.Value:
 
                         dbType = GetPropertyDbAttribute<TypeAttribute>(p.Name).DbTypeName;
-                        typeSize = GetPropertyDbAttribute<TypeAttribute>(p.Name).Size;
+                        typeSize = GetPropertyDbAttribute<TypeAttribute>(p.Name).Size;                                                   
 
-                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, constraints);               
+                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, constraints);
 
-                        break;
+                        if (GetPropertyDbAttribute<IdentityAttribute>(p.Name) != null)
+                            r_column.ReadOnly = true;
+
+                            break;
 
                     case PropertyMappingInfo.PropertyTypeRole.Model:
 

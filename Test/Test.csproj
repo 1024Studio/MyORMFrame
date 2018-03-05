@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MyORMFrame.Test.DbServerTest</StartupObject>
+    <StartupObject>MyORMFrame.Test.DbContextTest</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,7 +55,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DbContextTest.cs" />
+    <Compile Include="DbQueryTest.cs" />
     <Compile Include="DbServerTest.cs" />
+    <Compile Include="lambdaTranslatorTest.cs" />
     <Compile Include="MappingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlTest.cs" />
@@ -81,6 +84,10 @@
     <ProjectReference Include="..\DBServer\DBServer.csproj">
       <Project>{bf80f4a1-6d2f-4b45-9640-eda8de4cf3a4}</Project>
       <Name>DBServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LambdaToSql\LambdaToSql.csproj">
+      <Project>{7d8d9463-9b73-4d8a-9bd8-49e30475eee1}</Project>
+      <Name>LambdaToSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mapping\Mapping.csproj">
       <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>

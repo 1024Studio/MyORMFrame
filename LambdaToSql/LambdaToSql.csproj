@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}</ProjectGuid>
+    <ProjectGuid>{7D8D9463-9B73-4D8A-9BD8-49E30475EEE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyORMFrame.DBContext</RootNamespace>
-    <AssemblyName>DBContext</AssemblyName>
+    <RootNamespace>MyORMFrame.LambdaToSql</RootNamespace>
+    <AssemblyName>MyORMFrame.LambdaToSql</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,21 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContext.cs" />
-    <Compile Include="DbQuery.cs" />
-    <Compile Include="DbQueryProvider.cs" />
-    <Compile Include="IDbQuery.cs" />
+    <Compile Include="LambdaTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DBServer\DBServer.csproj">
-      <Project>{bf80f4a1-6d2f-4b45-9640-eda8de4cf3a4}</Project>
-      <Name>DBServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mapping\Mapping.csproj">
-      <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
-      <Name>Mapping</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

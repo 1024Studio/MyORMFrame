@@ -49,6 +49,10 @@
       <Project>{b05f6b85-c7c7-4fda-8357-f9f92bc4e0a4}</Project>
       <Name>DBServerProviders</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LambdaToSql\LambdaToSql.csproj">
+      <Project>{7d8d9463-9b73-4d8a-9bd8-49e30475eee1}</Project>
+      <Name>LambdaToSql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mapping\Mapping.csproj">
       <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
       <Name>Mapping</Name>

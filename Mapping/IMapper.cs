@@ -11,5 +11,7 @@ namespace MyORMFrame.Mapping
         List<RelationModel> GetRelations();
 
         PropertyMappingInfo GetColumnMappingInfo(string columnName);
+
+        ModelUtil GetModelUtil();
     }
 }

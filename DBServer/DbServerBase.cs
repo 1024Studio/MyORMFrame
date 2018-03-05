@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 using System.Data;
 using MyORMFrame.Mapping;
 using MyORMFrame.DBServerProvider;
 using MyORMFrame.SQL;
+using MyORMFrame.LambdaToSql;
 namespace MyORMFrame.DBServer
 {
     public class DbServerBase
@@ -16,12 +18,7 @@ namespace MyORMFrame.DBServer
         public DbServerBase(string name)
         {
             this.DbServerProvider = DbAccess.GetDbServerProvider(name);
-        }
-
-        public DataSet Select()
-        {
-            return null;
-        }
+        }       
         public void CreateDb(string dataBaseName)
         {
             DbServerProvider.ExcuteNonQuery(CommandType.Text, CreateDB.CreateDb(dataBaseName).ToSql().ToString());         
@@ -34,8 +31,29 @@ namespace MyORMFrame.DBServer
                 a.AddColumn(c.ColumnName, c.TypeName, c.Size, c.ConstraintsStr);
             }
             SqlScript sql = a.ToSql();   
+
             DbServerProvider.ExcuteNonQuery(CommandType.Text, sql.ToString());
         }
+
+        /// <summary>
+        /// 获取数据集
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public DataSet GetDataSet(SqlScript sql)
+        {
+            return null;
+        }
+
+        public void Update(SqlScript sql)
+        {
+
+        }
+        public List<TModel> SelectModels<TModel>(Expression expression)
+        {
+            LambdaTranslator.ToSql(expression);
+            return null;
+        } 
         /// <summary>
         /// 带异常处理的数据库执行函数
         /// </summary>

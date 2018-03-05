@@ -13,33 +13,32 @@ namespace MyORMFrame.Mapping
     {
         Dictionary<string, RelationModel> relationModels;
 
-        Dictionary<string, PropertyMappingInfo> columnMappings;   //  列映射信息
+        Dictionary<string, PropertyMappingInfo> columnMappings;     //  列映射信息
 
-        Dictionary<string, ModelUtil> modelUtil;    //model读写对象类
+        ModelUtil modelUtil;                                        //model读写对象类
 
         public Mapper(Type type)
         {
             //成员变量初始化
+            modelUtil = new ModelUtil(type);
+
             relationModels = new Dictionary<string, RelationModel>();
 
-            RelationModel main_relation = new RelationModel(type.Name); //建立主关系
+            List<RelationModel> relations = modelUtil.GetRelations();
 
-            //遍历成员属性
-            var type_members = type.GetProperties();
-            foreach (var m in type_members)
+            foreach (var r in relations)
             {
-                //RelationModelColumnSetting setting = null;
-
-
-                //  读取列的用户定义属性
-                var attrs = System.Attribute.GetCustomAttributes(m);  
-                foreach(var attr in attrs)
-                {
-
-                }
-
-                
+                relationModels.Add(r.TbName, r);
             }
+
+            columnMappings = new Dictionary<string, PropertyMappingInfo>();
+
+            foreach (var c in type.GetProperties())
+            {
+                columnMappings.Add(c.Name, modelUtil.GetPropertyMappingInfo(c.Name));
+            }
+                
+            
         }
         public RelationModel GetRelation(string modelName)
         {
@@ -54,11 +53,16 @@ namespace MyORMFrame.Mapping
         {
             return columnMappings[columnName];
         }
+        public ModelUtil GetModelUtil()
+        {
+            return modelUtil;
+        }
         public static IMapper MapperCreator(Type type)
         {
             IMapper mapper = new Mapper(type);
 
             return mapper;
         }
+        
     }
 }

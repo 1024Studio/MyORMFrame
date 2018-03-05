@@ -9,14 +9,25 @@ namespace MyORMFrame.DBContext
 {
     public class DbQueryProvider : IQueryProvider
     {
+        private DBServer.DbServerBase dbServer { get; set; }
+
+        public DbQueryProvider(DBServer.DbServerBase dbServer)
+        {
+            this.dbServer = dbServer;
+        }
+
         public IQueryable CreateQuery(Expression expression)
         {
-            throw new NotImplementedException();
+            IQueryable query = new DbQuery<object>(expression, this);
+
+            return query;
         }
 
         public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
         {
-            throw new NotImplementedException();
+            DbQuery<TElement> query = new DbQuery<TElement>(expression, this);
+
+            return query;
         }
 
         public object Execute(Expression expression)
@@ -27,6 +38,10 @@ namespace MyORMFrame.DBContext
         public TResult Execute<TResult>(Expression expression)
         {
             throw new NotImplementedException();
+        }
+        public List<TResult> ExecuteList<TResult>(Expression expression)
+        {
+            return dbServer.SelectModels<TResult>(expression);
         }
     }
 }

@@ -47,9 +47,11 @@ namespace MyORMFrame.Mapping
         public string Size { get; set; }
 
         public string ConstraintsStr { get; set; }
+
+        public bool ReadOnly { get; set; }
         //还不如直接改成sql字串
 
-        public RelationModelColumn(string ColumnName, string TypeName, string Size, string ConstraintsStr)
+        public RelationModelColumn(string ColumnName, string TypeName, string Size, string ConstraintsStr, bool readOnly = false)
         {
             this.ColumnName = ColumnName;
 
@@ -59,6 +61,7 @@ namespace MyORMFrame.Mapping
 
             this.ConstraintsStr = ConstraintsStr != null ? ConstraintsStr : string.Empty;
 
+            this.ReadOnly = readOnly;
         }
     }   
 }
