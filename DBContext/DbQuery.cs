@@ -17,24 +17,22 @@ namespace MyORMFrame.DBContext
 
         public IMappingDataSet MappingDataSet { get; set; }
 
-        public DbQuery() :this(null,null)
+        public DbQuery()
         {
-            
-        }
-
-        public DbQuery(Expression expression, DbQueryProvider provider)
-        {
-            if (expression == null)
-            {
-                expression = Expression.Constant(this);
-            }
-            this._expression = expression;
-
-            this.Provider = (IQueryProvider)provider;
+            _expression = Expression.Constant(this);
 
             ModelCatches = new List<T>();
 
             Logs = new List<Log>();
+        }
+
+        public DbQuery(Expression expression, DbQueryProvider provider) : base()
+        {
+            _expression = expression;
+            
+            this.Provider = (IQueryProvider)provider;
+
+            
         }
         /// <summary>
         /// 汇总查询结果到缓存
@@ -102,6 +100,13 @@ namespace MyORMFrame.DBContext
             {
                 return res;
             }
+        }
+
+        public DbQuery<T> Load<TProperty>(Expression<Func<T,TProperty>> expression = null)
+        {
+            var res = Expression.Block(Expression, expression);
+
+            return new DbQuery<T>(res, (DbQueryProvider)Provider);
         }
 
         public List<Log> GetOprationLogs()

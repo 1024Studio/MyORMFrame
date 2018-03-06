@@ -11,7 +11,8 @@ namespace MyORMFrame.Test
         public static void Main(string[] args)
         {
             var db = new MyDbConext();
-            db.Students.Select(a => a.Books).ToList();
+            //db.Students.Load(a => a.Class.id).Load(a=>a.Id).ToList();
+            db.Students.Where(a=>a.Class != null).ToList();
         }
 
     }

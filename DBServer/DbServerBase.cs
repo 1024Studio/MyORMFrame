@@ -51,7 +51,7 @@ namespace MyORMFrame.DBServer
         }
         public List<TModel> SelectModels<TModel>(Expression expression)
         {
-            LambdaTranslator.ToSql(expression);
+            LambdaTranslator.ResolveExpression(expression);
             return null;
         } 
         /// <summary>

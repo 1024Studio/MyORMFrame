@@ -43,6 +43,12 @@
     <Compile Include="LambdaTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mapping\Mapping.csproj">
+      <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
+      <Name>Mapping</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
