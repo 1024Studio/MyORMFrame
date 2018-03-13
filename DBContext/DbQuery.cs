@@ -17,6 +17,8 @@ namespace MyORMFrame.DBContext
 
         public IMappingDataSet MappingDataSet { get; set; }
 
+        public DBServer.DbServerBase DbServer { get; set; }
+
         public DbQuery()
         {
             _expression = Expression.Constant(this);
@@ -29,10 +31,7 @@ namespace MyORMFrame.DBContext
         public DbQuery(Expression expression, DbQueryProvider provider) : base()
         {
             _expression = expression;
-            
-            this.Provider = (IQueryProvider)provider;
-
-            
+            this.provider = provider;     
         }
         /// <summary>
         /// 汇总查询结果到缓存
@@ -104,9 +103,12 @@ namespace MyORMFrame.DBContext
 
         public DbQuery<T> Load<TProperty>(Expression<Func<T,TProperty>> expression = null)
         {
-            var res = Expression.Block(Expression, expression);
-
-            return new DbQuery<T>(res, (DbQueryProvider)Provider);
+            var ex = Expression;
+            if (expression != null)
+            {
+                ex = Expression.Block(Expression, expression);
+            }
+            return new DbQuery<T>(ex, (DbQueryProvider)Provider);
         }
 
         public List<Log> GetOprationLogs()
@@ -131,23 +133,24 @@ namespace MyORMFrame.DBContext
             }
         }
 
-        private IQueryProvider _provider;
+        private IQueryProvider provider;
         public IQueryProvider Provider
         {
             get
             {
-                return _provider;
+                if (provider == null)
+                    provider = new DbQueryProvider(DbServer);
+
+                return provider;
+                
             }
-            set { _provider = value; }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
             var res = ((DbQueryProvider)Provider).ExecuteList<T>(Expression);
 
-            JoinCatches(res);
-
-            return this.ModelCatches.GetEnumerator();
+            return res.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

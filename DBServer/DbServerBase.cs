@@ -15,9 +15,13 @@ namespace MyORMFrame.DBServer
     {
         private IDbServerProvider DbServerProvider { get; set; }
 
-        public DbServerBase(string name)
+        private IMappingDataSet MappingDataSet { get; set; }
+
+        public DbServerBase(string name, IMappingDataSet mappingDataSet)
         {
             this.DbServerProvider = DbAccess.GetDbServerProvider(name);
+
+            this.MappingDataSet = mappingDataSet;
         }       
         public void CreateDb(string dataBaseName)
         {
@@ -42,16 +46,67 @@ namespace MyORMFrame.DBServer
         /// <returns></returns>
         public DataSet GetDataSet(SqlScript sql)
         {
-            return null;
-        }
+            var res = DbServerProvider.ExcuteDataSet(CommandType.Text, sql.ToString());
 
+            return res;
+        }
+        public bool IsTableExist(string tableName)
+        {
+            string sql = string.Format("select count(1) from sys.objects where name = '{0}'", tableName);
+
+            int res = (int)DbServerProvider.ExcuteScalar(CommandType.Text, sql);
+            if (res == 1)
+                return true;
+            else
+                return false;
+        }
         public void Update(SqlScript sql)
         {
 
         }
         public List<TModel> SelectModels<TModel>(Expression expression)
         {
-            LambdaTranslator.ResolveExpression(expression);
+            LambdaTranslator.MappingDataSet = MappingDataSet;
+
+            TranslatorResult res =  LambdaTranslator.ResolveExpression(expression, true);     
+                  
+
+            List<RelationModel> relations = new List<RelationModel>();
+
+            List<string> tables = new List<string>();
+
+            //遍历所有涉及到的关系
+            foreach (var type in res.Types)
+            {
+                if (DbTypeMapping.TypeMapping(type).Equals(DbTypeMapping.UserType))
+                {
+                    var rls = MappingDataSet.GetRelation(type.Name);
+                    relations.Add(rls);
+
+                    tables.Add(rls.TbName);
+                }
+                else if (DbTypeMapping.TypeMapping(type).Equals(DbTypeMapping.List_UserType))
+                {
+                    //建立新的查询，
+                }
+            }
+
+            var selectSql = Select.From(tables);
+            foreach (var r in relations)
+            {
+                foreach (var c in r.Columns)
+                {
+                    selectSql.AddColumns(r.TbName + "." + c.ColumnName + " as " + r.TbName + "_" + c.ColumnName);
+                }
+                
+            }
+            selectSql.SetWhere(res.GetWhere());
+
+            string sql_str = selectSql.ToSql().ToString();
+            var dataSet = GetDataSet(selectSql.ToSql());
+
+            var tabless = dataSet.Tables;
+
             return null;
         } 
         /// <summary>

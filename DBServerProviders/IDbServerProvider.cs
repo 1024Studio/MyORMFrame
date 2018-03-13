@@ -21,6 +21,8 @@ namespace MyORMFrame.DBServerProvider
 
         DbDataReader ExcuteReader(CommandType cmdType, string cmdText);
 
+        DataSet ExcuteDataSet(CommandType cmdType, string cmdText);
+
         object ExcuteScalar(CommandType cmdType, string cmdText);
 
         SqlException ConvertToSqlException(Exception exception);

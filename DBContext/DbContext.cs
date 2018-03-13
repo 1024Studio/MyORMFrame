@@ -10,33 +10,44 @@ namespace MyORMFrame.DBContext
 {
     public class DbContext
     {
-        private DbQueryProvider provider;
-
         private IMappingDataSet mappingDataSet;
 
         private List<IDbQuery> dbQueriers;
 
+        private DbServerBase dbServer;
+
         public DbContext(string name)
         {
-            var dbServer = new DbServerBase(name);
-
-            provider = new DbQueryProvider(dbServer);
-
             mappingDataSet = new MappingDataSet(Mapper.MapperCreator);
 
+            dbServer = new DbServerBase(name, mappingDataSet);
+           
             this.dbQueriers = new List<IDbQuery>();
-
-            InitDb();//初始化数据库上下文
         }
-        private void InitDb()
+        public void InitDb()
         {
             //连接状态记录表，检测实体关系模型是否与数据库匹配
             //若表不存在则初始化数据表
+            if (dbServer.IsTableExist("_relationState"))
+            {
+                //存在，验证是否匹配
+            }
+            else
+            {
+                //不存在,实例化关系模型(建表)
+                foreach (var r in mappingDataSet.GetAllRelations())
+                {
+                    dbServer.CreateTable(r);
+                }
+
+                //最后建立relationState表
+                dbServer.CreateTable(mappingDataSet.GetRelationState());
+            }
 
         }
         public void RegisteQuerier<TModel>(DbQuery<TModel> querier)
         {
-            querier.Provider = provider;
+            querier.DbServer = this.dbServer;
 
             querier.MappingDataSet = this.MappingDataSet;
 

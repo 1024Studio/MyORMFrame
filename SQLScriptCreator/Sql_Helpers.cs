@@ -19,6 +19,10 @@ namespace MyORMFrame.SQL
 
             return instance;
         }
+        public void Flush()
+        {
+            dbName = null;
+        }
         public SqlScript ToSql()
         {
             return new SqlScript(string.Format("create database {0}", dbName));
@@ -89,8 +93,11 @@ namespace MyORMFrame.SQL
     public class InsertInto : ISqlHelper
     {
         private string TableName { get; set; }
-        public List<string> Values { get; set; }
+
+        private List<string> Values { get; set; }
+
         static InsertInto instance { get; set; }
+
         private InsertInto() { }
         public static InsertInto InSertInto(string tableName)
         {
@@ -98,7 +105,13 @@ namespace MyORMFrame.SQL
             {
                 instance = new InsertInto();
             }
+            instance.Flush();
             return instance;
+        }
+        public void Flush()
+        {
+            this.TableName = null;
+            this.Values = null;
         }
         public SqlScript ToSql()
         {
@@ -108,10 +121,85 @@ namespace MyORMFrame.SQL
 
     public class Select : ISqlHelper
     {
+        private List<string> Tables { get; set; }
+        private List<string> Columns { get; set; }
+        private string Where { get; set; }
 
+        private static Select instance { get; set; }
+        private Select() { }
+
+        public static Select From(List<string> tables)
+        {
+            if (instance == null)
+            {
+                instance = new Select();
+            }
+
+            instance.Flush();
+            if (tables != null)
+                instance.Tables = tables;
+            else
+                instance.Tables = new List<string>();
+
+            instance.Columns = new List<string>();
+            instance.Where = string.Empty;
+            return instance;
+        }
+        public Select AddColumns(string ColumnName)
+        {
+            if (!Columns.Contains(ColumnName))
+                Columns.Add(ColumnName);
+
+            return this;
+        }
+        public Select SetWhere(string Where)
+        {
+            if(Where != null)
+                this.Where = Where;
+
+            return this;
+        }
+        public void Flush()
+        {
+            Tables = null;
+            Columns = null;
+            Where = null;
+        }
         public SqlScript ToSql()
         {
-            throw new NotImplementedException();
+            if (Tables.Count > 0)
+            {
+                string sql = "Select {0} FROM {1} {2}";
+                string columns = string.Empty;
+                string tables = string.Empty;
+                string where = Where != string.Empty ? string.Format("WHERE {0}", Where) : string.Empty;
+                foreach (var c in Columns)
+                {
+                    if (columns == string.Empty)
+                    {
+                        columns = c;
+                        continue;
+                    }
+                        
+                    columns = string.Format("{0},{1}", columns, c);
+                }
+
+                foreach (var t in Tables)
+                {
+                    if(tables == string.Empty)
+                    {
+                        tables = t;
+                        continue;
+                    }
+                    tables = string.Format("{0},{1}", tables, t);
+                }
+
+                sql = string.Format(sql, columns, tables, where);
+
+                return new SqlScript(sql);
+            }
+
+            return null;
         }
     }
     public class Update : ISqlHelper

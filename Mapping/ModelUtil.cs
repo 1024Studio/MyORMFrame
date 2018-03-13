@@ -95,7 +95,8 @@ namespace MyORMFrame.Mapping
                         dbType = otherModel_util.GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).DbTypeName;
                         typeSize = otherModel_util.GetPropertyDbAttribute<TypeAttribute>(otherModel_util.PrimaryKeyPropertyName).Size;
 
-                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, "NOT NULL");    //  设置外键
+                        string ForeginKeyStr = string.Format("FOREIGN KEY REFERENCES {0}({1})", otherModel_util.ModelType.Name, otherModel_util.PrimaryKeyPropertyName);
+                        r_column = new RelationModelColumn(p.Name, dbType, typeSize, "NOT NULL ");    //  设置外键
 
                         new_relations = otherModel_util.GetRelations();
 
@@ -111,7 +112,7 @@ namespace MyORMFrame.Mapping
                         typeSize = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).Size;
 
                         //被参照关系的主关系添加一列参照属性
-                        new_relations[0].Columns.Add(new RelationModelColumn(PrimaryKeyPropertyName, dbType, typeSize, "NOT NULL"));
+                        new_relations[0].Columns.Add(new RelationModelColumn(string.Format("{0}_{1}", ModelType.Name, PrimaryKeyPropertyName), dbType, typeSize, "NOT NULL"));
 
                         break;
 
@@ -123,7 +124,10 @@ namespace MyORMFrame.Mapping
                         otherModel_util = new ModelUtil(propertyMappingInfo.ReferenceModelType);
                         //新建第三方参照relation
                         new_relations = new List<RelationModel>();
-                        var _newRelation = new RelationModel(string.Format("{0}_{1}", ModelType.Name, otherModel_util.ModelType.Name));
+
+                        var _casetmp = ModelType.Name.CompareTo(otherModel_util.ModelType.Name);
+                        var relationName = string.Format("{0}_{1}", _casetmp < 0 ? ModelType.Name : otherModel_util.ModelType.Name, _casetmp > 0 ? ModelType.Name : otherModel_util.ModelType.Name);
+                        var _newRelation = new RelationModel(relationName);
 
                         //添加第一参照列
                         dbType = GetPropertyDbAttribute<TypeAttribute>(PrimaryKeyPropertyName).DbTypeName;

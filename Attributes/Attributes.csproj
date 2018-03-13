@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbAttribute.cs" />
+    <Compile Include="ForeginKey.cs" />
     <Compile Include="IdentityAttribute.cs" />
     <Compile Include="NotNullAttribute.cs" />
     <Compile Include="ConstraintAttribute.cs" />

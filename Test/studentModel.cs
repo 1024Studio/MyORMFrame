@@ -14,6 +14,7 @@ namespace MyORMFrame.Test
         [PrimaryKey]
         [Identity(1,1)]
         public int Id { get; set; }
+        public string Name { get; set; }
         public Class Class { get;set;}
         public List<Book> Books { get; set; }
         public List<Course> Courses { get; set; }
@@ -23,6 +24,8 @@ namespace MyORMFrame.Test
     {
         [PrimaryKey]
         public int id { get; set; }
+
+        public string Name { get; set; }
     }
 
     public class Course

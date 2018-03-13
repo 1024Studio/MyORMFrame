@@ -27,7 +27,23 @@ namespace MyORMFrame.Mapping
         {
             IMapper mapper = mapperCreator(type);       //创建映射器
 
-            mappers.Add(type, mapper);    
+            if (!mappers.Keys.Contains(type))
+                mappers.Add(type, mapper);
+
+            foreach (var p in mapper.GetColumnMappingInfos())
+            {
+                if (p.Property_TypeRole != PropertyMappingInfo.PropertyTypeRole.Value)
+                {
+                    Type dependType = p.ReferenceModelType;
+
+                    if (!mappers.Keys.Contains(dependType))
+                    {
+                        IMapper _mapper = mapperCreator(dependType);
+
+                        mappers.Add(dependType, _mapper);
+                    }
+                }
+            }
               
             var typeRelations = mapper.GetRelations();  //获取该type涉及的所有关系模型
 
@@ -46,7 +62,7 @@ namespace MyORMFrame.Mapping
 
                     foreach (var column in relation.Columns)
                     {
-                        if (oldRelation.Columns.Where( a=> a.ColumnName == column.ColumnName) != null)
+                        if (oldRelation.Columns.Where( a=> a.ColumnName == column.ColumnName).Count() == 0)
                         {
                             //若不存在该列，就添加汇总
                             oldRelation.Columns.Add(column);
@@ -76,6 +92,27 @@ namespace MyORMFrame.Mapping
         public IMapper GetMapper(Type type)
         {
             return mappers[type];
+        }
+
+        public IMapper GetMapper(string typeName)
+        {
+            var key = mappers.Keys.Where(type => type.Name == typeName).First();
+
+            if (key != null)
+            {
+                return mappers[key];
+            }
+            else
+                return null;
+        }
+
+        public RelationModel GetRelationState()
+        {
+            RelationModel relationState = new RelationModel("_relationstate");
+
+            relationState.Columns.Add(new RelationModelColumn("id", "int", null, null));
+
+            return relationState;
         }
     }
 }

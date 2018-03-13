@@ -13,6 +13,10 @@ namespace MyORMFrame.Mapping
 
         IMapper GetMapper(Type type);
 
+        IMapper GetMapper(string typeName);
+
+        RelationModel GetRelationState();
+
         List<RelationModel> GetAllRelations();
     }
 }

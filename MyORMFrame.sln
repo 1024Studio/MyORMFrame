@@ -9,19 +9,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL", "SQLScriptCreator\SQL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContext", "DBContext\DBContext.csproj", "{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOperator", "DBOperator\DBOperator.csproj", "{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapping", "Mapping\Mapping.csproj", "{90D67FE8-537B-4C1D-AF69-8285595E5BAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{656EB215-F52A-4182-B026-768856B9506A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelQuery", "ModelParser\ModelQuery.csproj", "{3E83A6EA-F91A-4E18-AC19-E2A202077373}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes", "Attributes\Attributes.csproj", "{F7CE7CEC-AB93-4D14-B051-2EAFC256C3F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBServer", "DBServer\DBServer.csproj", "{BF80F4A1-6D2F-4B45-9640-EDA8DE4CF3A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaToSql", "LambdaToSql\LambdaToSql.csproj", "{7D8D9463-9B73-4D8A-9BD8-49E30475EEE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelParser", "ModelParser\ModelParser.csproj", "{3E83A6EA-F91A-4E18-AC19-E2A202077373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A6AF4EC-CF42-48DD-8A64-7706496AAB47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A701FAAC-54CD-40EE-AEDA-46C17A2FD462}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D67FE8-537B-4C1D-AF69-8285595E5BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,10 +47,6 @@ Global
 		{656EB215-F52A-4182-B026-768856B9506A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{656EB215-F52A-4182-B026-768856B9506A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{656EB215-F52A-4182-B026-768856B9506A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7CE7CEC-AB93-4D14-B051-2EAFC256C3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7CE7CEC-AB93-4D14-B051-2EAFC256C3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7CE7CEC-AB93-4D14-B051-2EAFC256C3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +59,10 @@ Global
 		{7D8D9463-9B73-4D8A-9BD8-49E30475EEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D8D9463-9B73-4D8A-9BD8-49E30475EEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D8D9463-9B73-4D8A-9BD8-49E30475EEE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E83A6EA-F91A-4E18-AC19-E2A202077373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

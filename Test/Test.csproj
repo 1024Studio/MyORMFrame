@@ -73,10 +73,6 @@
       <Project>{4a6af4ec-cf42-48dd-8a64-7706496aab47}</Project>
       <Name>DBContext</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DBOperator\DBOperator.csproj">
-      <Project>{a701faac-54cd-40ee-aeda-46c17a2fd462}</Project>
-      <Name>DBOperator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DBServerProviders\DBServerProviders.csproj">
       <Project>{b05f6b85-c7c7-4fda-8357-f9f92bc4e0a4}</Project>
       <Name>DBServerProviders</Name>
@@ -92,10 +88,6 @@
     <ProjectReference Include="..\Mapping\Mapping.csproj">
       <Project>{90d67fe8-537b-4c1d-af69-8285595e5bac}</Project>
       <Name>Mapping</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ModelParser\ModelQuery.csproj">
-      <Project>{3e83a6ea-f91a-4e18-ac19-e2a202077373}</Project>
-      <Name>ModelQuery</Name>
     </ProjectReference>
     <ProjectReference Include="..\SQLScriptCreator\SQL.csproj">
       <Project>{093e95ce-a157-460c-a23c-66da785f43c9}</Project>

@@ -15,8 +15,12 @@ namespace MyORMFrame.Test
                 .AddColumn("asd","12","2","")
                 .AddColumn("dadasd","123","3","")
                 .ToSql();
-
-            Console.Write(sql.ToString());
+            var select_sql = Select.From(new List<string> { "table_0", "table_1" })
+                .AddColumns("column0")
+                .AddColumns("column1")
+                .SetWhere("aaa = 111")
+                .ToSql();
+            Console.Write(select_sql.ToString());
             Console.Read();
             return;
         }

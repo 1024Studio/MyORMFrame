@@ -53,6 +53,11 @@ namespace MyORMFrame.Mapping
         {
             return columnMappings[columnName];
         }
+
+        public List<PropertyMappingInfo> GetColumnMappingInfos()
+        {
+            return columnMappings.Values.ToList();
+        }
         public ModelUtil GetModelUtil()
         {
             return modelUtil;

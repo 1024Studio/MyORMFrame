@@ -12,6 +12,8 @@ namespace MyORMFrame.Mapping
 
         PropertyMappingInfo GetColumnMappingInfo(string columnName);
 
+        List<PropertyMappingInfo> GetColumnMappingInfos();
+
         ModelUtil GetModelUtil();
     }
 }

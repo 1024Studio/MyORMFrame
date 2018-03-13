@@ -57,6 +57,23 @@ namespace MyORMFrame.DBServerProvider
             return dataReader;
         }
 
+        public DataSet ExcuteDataSet(CommandType cmdType, string cmdText)
+        {
+            SqlCommand cmd = new SqlCommand();
+            SqlConnection conn = GetConnection();
+
+            PreparCommand(cmd, cmdText, cmdType, conn);
+
+            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            {
+                DataSet ds = new DataSet();
+                // 填充DataSet.  
+                da.Fill(ds); 
+
+                return ds;
+            }
+        }
+
         public object ExcuteScalar(CommandType cmdType, string cmdText)
         {
             SqlCommand cmd = new SqlCommand();

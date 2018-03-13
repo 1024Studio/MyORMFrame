@@ -12,7 +12,7 @@ namespace MyORMFrame.Test
         {
             var db = new MyDbConext();
             //db.Students.Load(a => a.Class.id).Load(a=>a.Id).ToList();
-            db.Students.Where(a=>a.Class != null).ToList();
+            db.Students.Where(a=>a.Class.Name == "f140114").ToList();
         }
 
     }
@@ -20,11 +20,19 @@ namespace MyORMFrame.Test
     {
         public DBContext.DbQuery<Student> Students { get; set; }
 
+        public DBContext.DbQuery<Course> Course { get; set; }
+
         public MyDbConext() : base("123")
         {
             this.Students = new DBContext.DbQuery<Student>();
 
+            this.Course = new DBContext.DbQuery<Test.Course>();
+
             this.RegisteQuerier<Student>(Students);
+
+            this.RegisteQuerier<Course>(Course);
+
+            base.InitDb();
         }
     }
 }

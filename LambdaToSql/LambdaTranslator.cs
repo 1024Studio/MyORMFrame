@@ -10,7 +10,7 @@ namespace MyORMFrame.LambdaToSql
 {
     public class LambdaTranslator
     {
-        private static IMappingDataSet MappingDataSet;
+        public static IMappingDataSet MappingDataSet;
 
         public static string where = string.Empty;
 
@@ -37,7 +37,7 @@ namespace MyORMFrame.LambdaToSql
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="isInit">是否初始化生产模板</param>
-        public static void ResolveExpression(Expression expression, bool isInit = false)
+        public static TranslatorResult ResolveExpression(Expression expression, bool isInit = false)
         {
             ExpressionType exType = expression.NodeType;
 
@@ -68,13 +68,16 @@ namespace MyORMFrame.LambdaToSql
                 case ExpressionType.Lambda:
                     ResolveLambdaExpression(expression as LambdaExpression);
                     break;
-                case ExpressionType.MemberAccess:
-                    break;
-                case ExpressionType.Parameter:
+                case ExpressionType.Constant:
+                    ResolveConstantExpression(expression as ConstantExpression);
                     break;
                 default:
-                    break;
+                    throw new Exception("无法处理的表达式");
             }
+            TranslatorResult res = new TranslatorResult { Wheres = Wheres, Types = types };
+
+            return res;
+
         }
 
         private static string ResolveLambdaExpression(LambdaExpression expression)
@@ -88,14 +91,6 @@ namespace MyORMFrame.LambdaToSql
             else if (expression.Body.NodeType == ExpressionType.MemberAccess)
             {
                 res = ResolveMemberExpression(expression.Body as MemberExpression);
-            }
-            else if (expression.Body.NodeType == ExpressionType.And)
-            {
-
-            }
-            else if (expression.Body.NodeType == ExpressionType.AndAlso)
-            {
-
             }
                       
             return res;
@@ -125,7 +120,7 @@ namespace MyORMFrame.LambdaToSql
                 {
                     //如果成员表达式的右边是用户类型
 
-                    CreateJoin(memberType.Name); //构造多关系连接
+                    CreateJoin(memberType.Name + "." + new ModelUtil(memberType).PrimaryKeyPropertyName); //构造多关系连接
 
                     if (!types.Contains(memberType))
                     {
@@ -182,7 +177,7 @@ namespace MyORMFrame.LambdaToSql
                 {
                     if (a.NodeType == ExpressionType.Quote)
                     {
-                        ResolveUnaryExpression(a as UnaryExpression);
+                        ResolveBinaryExpression(((a as UnaryExpression).Operand as LambdaExpression).Body as BinaryExpression);
                     }
                     else if(a.NodeType == ExpressionType.Call)
                     {
@@ -193,13 +188,82 @@ namespace MyORMFrame.LambdaToSql
             
         }
 
-        private static void ResolveUnaryExpression(UnaryExpression expression)
+        private static void ResolveBinaryExpression(BinaryExpression expression)
         {
-            var res = expression.NodeType;
+            string leftName = ResolveMemberExpression(expression.Left as MemberExpression);
+
+            string rightName = null;
+
+            string Operator = GetOperator(expression);
+
+            if (expression.Right.NodeType == ExpressionType.MemberAccess)
+            {
+                rightName = ResolveMemberExpression(expression.Left as MemberExpression);
+            }
+            else if (expression.Right.NodeType == ExpressionType.Constant)
+            {
+                rightName = ResolveConstantExpression(expression.Right as ConstantExpression);
+            }
+            else
+            {
+                throw new Exception("无法解析表达式");
+            }
+
+            if (leftName != null && rightName != null && Operator != null)
+            {
+                string res = string.Format("{0} {1} {2}", leftName, Operator, rightName);
+
+                if (!Wheres.Contains(res))
+                {
+                    Wheres.Add(res);
+                }
+            }
+            
         }
+
+        private static string GetOperator(BinaryExpression expression)
+        {
+            var nodeType = expression.NodeType;
+            switch (nodeType)
+            {
+                case ExpressionType.Equal:
+                    return "=";
+                case ExpressionType.NotEqual:
+                    return "<>";
+                case ExpressionType.GreaterThan:
+                    return ">";
+                case ExpressionType.LessThan:
+                    return "<";
+                case ExpressionType.LessThanOrEqual:
+                    return "<=";
+                case ExpressionType.GreaterThanOrEqual:
+                    return ">=";
+                case ExpressionType.And:
+                    return "and";
+                case ExpressionType.AndAlso:
+                    return "and";
+                case ExpressionType.Or:
+                    return "Or";
+                case ExpressionType.OrElse:
+                    return "else";
+            }
+            return null;
+        }
+
         private static string ResolveConstantExpression(ConstantExpression expression)
         {
-            return "123";
+            string res = null;
+
+            if (expression.Type == typeof(string))
+            {
+                res = string.Format("'{0}'", expression.Value.ToString());
+            }
+            else
+            {
+                res = expression.Value.ToString();
+            }
+                        
+            return res;
         }
 
         private static string ResolveParameterExpression(ParameterExpression expression)
@@ -219,7 +283,7 @@ namespace MyORMFrame.LambdaToSql
             }
             else if (typeMapping_parameterType.Equals(DbTypeMapping.UserType))
             {
-                CreateJoin(parameterType.Name, true);
+                CreateJoin(parameterType.Name + "." + new ModelUtil(parameterType).PrimaryKeyPropertyName);
 
                 if (!types.Contains(parameterType))
                 {
@@ -245,7 +309,7 @@ namespace MyORMFrame.LambdaToSql
             {
                 JoinCatches[0] = expression;
 
-                var join = JoinCatches[0] + ".[primaryKey] = " + JoinCatches[1] + ".[primaryKey]";
+                var join = JoinCatches[0] + " = " + JoinCatches[1];
 
                 if (!Wheres.Contains(join))
                 {
@@ -260,6 +324,25 @@ namespace MyORMFrame.LambdaToSql
 
     public class TranslatorResult
     {
-        //public List<string> 
+        public List<string> Wheres { get; set; }
+
+        public List<Type> Types { get; set; }
+
+        public string GetWhere()
+        {
+            //合并where
+            var where = string.Empty;
+            foreach (var w in Wheres)
+            {
+                if (where == string.Empty)
+                {
+                    where = w;
+                    continue;
+                }
+                where = string.Format("{0} AND {1}", where, w);
+            }
+
+            return where;
+        }
     }
 }
